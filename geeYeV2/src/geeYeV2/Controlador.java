@@ -1,17 +1,18 @@
+package geeYeV2;
+
+import java.sql.*;
 /*
- * Proyecto geeYeV2 - Archivo Nueva.java - Compañía DAW
+ * Proyecto GEEyE_V2 - Archivo Controlador.java - Compañía DAW
  * Licencia Creative Commons BY-NC-SA 4.0
  * https://creativecommons.org/licenses/by-nc-sa/4.0/
  */
-
-package geeYeV2;
 
 /**
  *
  * @author Cristina Carrascosa <cctausias@gmail.com>, Ian Molina , Rai Vilar
  * @version 1.0
- * @date 7 abr. 2022 19:46:47
+ * @date 6 abr. 2022 18:47:08
  */
-public class Nueva {
+public class Controlador {
 
 }
