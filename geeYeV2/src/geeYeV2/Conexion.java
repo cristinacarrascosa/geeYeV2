@@ -23,7 +23,7 @@ import java.sql.SQLException;
 public class Conexion {
 
      // Creamos una variable
-     public String bd="eventos";
+    String bd="catering";
     String url="jdbc:mysql://localhost:3306/"; // variable que indica el servidor y el puerto
     String user="cris"; // el usuario por defecto
     String password="sobrina5"; // por defecto sin contraseña
@@ -38,6 +38,13 @@ public class Conexion {
      */
     public Conexion(String bd) {
         this.bd = bd;
+    }
+    
+    /**
+     * Agregamos constructor por defecto
+     */
+    public Conexion(){
+        
     }
     
     
@@ -74,13 +81,13 @@ public class Conexion {
         }
     }
     
-    public static void main(String[] args) {
-        
-        // Creamos un objeto de tipo conexion
-        Conexion conexion = new Conexion("catering");
-        
-        // Dentro de conexion llamamos el método conectar
-        conexion.conectar();
-        conexion.desconectar();
-    }
+//    public static void main(String[] args) {
+//        
+//        // Creamos un objeto de tipo conexion
+//        Conexion conexion = new Conexion("catering");
+//        
+//        // Dentro de conexion llamamos el método conectar
+//        conexion.conectar();
+//        conexion.desconectar();
+//    }
 }

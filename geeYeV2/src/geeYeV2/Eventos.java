@@ -82,7 +82,7 @@ public class Eventos {
         return fecha;
     }
 
-    public boolean isPagado() {
+    public boolean getPagado() {
         return pagado;
     }
 
