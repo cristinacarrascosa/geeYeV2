@@ -7,6 +7,8 @@ package geeYeV2;
 
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -87,5 +89,25 @@ public class daoEvento {
         }
         
         return lista;
+    }
+    
+    /**
+     * Metrodo para borrar un registro
+     * @param id int para indicar el id del evento a borrar
+     * @return true si lo borra, false si no lo hace
+     */
+    public boolean delete(int id){
+        try {
+            String sql="DELETE FROM eventos WHERE id=?";
+            PreparedStatement ps=c.conectar().prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.execute();
+            ps.close();
+            ps=null;
+            c.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 }

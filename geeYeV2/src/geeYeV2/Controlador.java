@@ -19,10 +19,12 @@ import javax.swing.JOptionPane;
 public class Controlador implements ActionListener,MouseListener {
     /**
      * Creamos objeto Vista, Evento y daoEvento
+     * Variable id para indicar el id de registro de la BD
      */
     Vista v;
     Eventos e;
     daoEvento dao;
+    int id = 0; 
     
     
     /**
@@ -75,13 +77,19 @@ public class Controlador implements ActionListener,MouseListener {
             if(!dao.create(e)){
                 JOptionPane.showMessageDialog(this.v, "El evento NO ha sido registrado");
             }
-            refrescarTabla();
+            
             limpiarCampos(); // llámamos a este método para que limpie los campos de nuestra vista
            
             
         }
         if(a.getSource()== v.btnEliminar){ // Eliminar registro
-            
+            int x = JOptionPane.showConfirmDialog(this.v, "¿Seguro que quieres eliminar este registro"); // Mensaje de confirmación
+            // Comprobamos que la respuesta es afirmativa y que id es mayor que 0
+            if(x == 0 && id > 0){
+                if(!dao.delete(id)){
+                    JOptionPane.showMessageDialog(this.v, "No se ha eliminado el registro");
+                }
+            }
         }
         if(a.getSource()== v.btnGuardar){ // Editar registro
             
@@ -92,6 +100,7 @@ public class Controlador implements ActionListener,MouseListener {
         if(a.getSource()== v.btnPDF){ // Generar PDF
             
         }
+        refrescarTabla(); // Para que se muestre el estado de la tabla después de cualquier evento
     }
     /**
      * Este método es para cuando hagamos click con el ratón
@@ -100,6 +109,10 @@ public class Controlador implements ActionListener,MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource()==v.tblDatos){ // Código para cuando hace clic sobre la tabla
+            int fila = v.tblDatos.getSelectedRow();
+            id = Integer.parseInt(v.tblDatos.getValueAt(fila, 0).toString()); // Parseamos el String a Int e indicamos el num de fila y la columna
+            
+            System.out.println("ID:"+ id);
             
         }
         
