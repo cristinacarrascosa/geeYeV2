@@ -22,7 +22,7 @@ public class Controlador implements ActionListener,MouseListener {
      * Variable id para indicar el id de registro de la BD
      */
     Vista v;
-    Eventos e;
+    Eventos e,e1;
     daoEvento dao;
     int id = 0; 
     
@@ -43,6 +43,7 @@ public class Controlador implements ActionListener,MouseListener {
     public Controlador(){
         v = new Vista();
         dao = new daoEvento();  // Al crear aquí un objeto de tipo daoEvento, se crea una conexión, ya que está así configurado el constructor de daoEvento
+        e1 = new Eventos();
         v.btnAgregar.addActionListener(this);
         v.btnEliminar.addActionListener(this);
         v.btnGuardar.addActionListener(this);
@@ -71,7 +72,7 @@ public class Controlador implements ActionListener,MouseListener {
             e.setComensales(Integer.parseInt(v.spnComensales.getValue().toString())); // Parseamos el int a un String
             e.setFecha(v.txtFecha.getText());
             e.setPagado(Boolean.valueOf(v.cboPagado.getSelectedItem().toString()));  // Parseamos el boolean
-            e.setPrecioCubierto(Integer.parseInt(v.SpnPrecioCubierto.getValue().toString()));
+            e.setPrecioCubierto(Double.parseDouble(v.SpnPrecioCubierto.getValue().toString()));
             
             // El método create me devuelve un boolean
             if(!dao.create(e)){
@@ -92,10 +93,18 @@ public class Controlador implements ActionListener,MouseListener {
             }
         }
         if(a.getSource()== v.btnGuardar){ // Editar registro
+            e1.setNombre_espacio(v.txtNombre_espacio.getText()); // Con esto introduzco los datos de la vista en el setter de Eventos
+            e1.setComensales(Integer.parseInt(v.spnComensales.getValue().toString())); // Parseamos el int a un String
+            e1.setFecha(v.txtFecha.getText());
+            e1.setPagado(Boolean.valueOf(v.cboPagado.getSelectedItem().toString()));  // Parseamos el boolean
+            e1.setPrecioCubierto(Double.parseDouble(v.SpnPrecioCubierto.getValue().toString()));
             
+            if(!dao.update(e1)){
+                JOptionPane.showMessageDialog(this.v, "El registro No ha sido actualizado");
+            }
         }
         if(a.getSource()== v.btnLimpiar){ // Limpiar campos
-            
+            limpiarCampos();
         }
         if(a.getSource()== v.btnPDF){ // Generar PDF
             
@@ -104,16 +113,20 @@ public class Controlador implements ActionListener,MouseListener {
     }
     /**
      * Este método es para cuando hagamos click con el ratón
-     * @param e 
+     * @param e objeto de tipo MouseEvent
      */
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource()==v.tblDatos){ // Código para cuando hace clic sobre la tabla
             int fila = v.tblDatos.getSelectedRow();
             id = Integer.parseInt(v.tblDatos.getValueAt(fila, 0).toString()); // Parseamos el String a Int e indicamos el num de fila y la columna
-            
-            System.out.println("ID:"+ id);
-            
+            e1 = dao.read(id);
+            v.lblId.setText(""+e1.getId()); // asignamos los datos a cada uno de los elementos de la vista
+            v.txtNombre_espacio.setText(e1.getNombre_espacio());
+            v.spnComensales.setValue(e1.getComensales());
+            v.txtFecha.setText(e1.getFecha());
+            v.cboPagado.setSelectedItem(e1.getPagado());
+            v.SpnPrecioCubierto.setValue(e1.getPrecioCubierto());
         }
         
     }
@@ -150,6 +163,7 @@ public class Controlador implements ActionListener,MouseListener {
         v.txtFecha.setText("");
         v.cboPagado.setSelectedIndex(0);
         v.SpnPrecioCubierto.setValue(0);
+        v.lblId.setText("");
     }
     /**
      * Método para cuando tenemos presionado el botón del ratón

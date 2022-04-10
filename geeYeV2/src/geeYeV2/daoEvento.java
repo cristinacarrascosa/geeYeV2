@@ -34,7 +34,7 @@ public class daoEvento {
     /**
      * Método para insertar valores en la tabla
      *
-     * @param e
+     * @param e objeto de tipo Eventos
      * @return true o false dependiendo de si el registro ha sido insertado o no
      */
     public boolean create(Eventos e) {
@@ -109,5 +109,61 @@ public class daoEvento {
         } catch (SQLException ex) {
             return false;
         }
+    }
+    
+    /**
+     * Métod para modificar registro
+     * @param e Objeto de tipo Eventos
+     * @return true si se ha modificado, false si no lo ha hecho
+     */
+    public boolean update(Eventos e){
+        try {
+            String sql = "UPDATE eventos SET nombre_espacio=?,comensales=?,fecha=?,pagado=?,precioCubierto=?";
+            PreparedStatement ps=c.conectar().prepareStatement(sql);
+            ps.setString(1, e.getNombre_espacio());
+            ps.setInt(2, e.getComensales());
+            ps.setString(3, e.getFecha());
+            ps.setBoolean(4, e.getPagado());
+            ps.setDouble(5, e.getPrecioCubierto());
+            ps.execute();
+            ps.close();
+            ps=null;
+            c.desconectar();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param id
+     * @return devuelve un objeto de tipo Eventos 
+     */
+    public Eventos read(int id) {
+        Eventos e = new Eventos();
+        try {        
+            String sql = "SELECT * FROM eventos WHERE id=?";
+            PreparedStatement ps = c.conectar().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();// ResultSet es el resultado de la ejecución de la consulta
+            // Ahora recorremos el resultado y nos devuelve un registro
+            while(rs.next()){
+                e.setId(rs.getInt("id")); // los entrecomillados tienen que ser exactamente igual a los de la BD
+                e.setNombre_espacio(rs.getString("nombre_espacio"));
+                e.setComensales(rs.getInt("comensales"));
+                e.setFecha(rs.getString("fecha"));
+                e.setPagado(rs.getBoolean("pagado"));
+                e.setPrecioCubierto(rs.getDouble("precioCubierto"));
+            }
+            ps.close();
+            ps=null;
+            c.desconectar();
+        } catch (SQLException ex) {
+            System.err.println("ERROR! FALLO EN EL MÉTODO READ EVENTOS");
+        }
+        
+        return e;
     }
 }
