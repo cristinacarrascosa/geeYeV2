@@ -25,8 +25,7 @@ public class Eventos {
     private int id;
     private String nombre_espacio;
     private int comensales;
-    private String fecha;
-            
+    private String fecha;        
     private boolean pagado;
     private double precioCubierto;
     

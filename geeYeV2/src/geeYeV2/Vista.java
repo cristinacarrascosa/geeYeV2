@@ -20,7 +20,7 @@ public class Vista extends JFrame{
     
     JLabel lblIdEvento ,lblNombre_espacio,lblComensales,lblFecha,lblPagado,lblPrecioCubierto,lblId;
     JTextField txtNombre_espacio,txtFecha;
-    JSpinner spnComensales, SpnPrecioCubierto; // ¡MIRAR SI ESTA VARIABLE NOS SIRVE
+    JSpinner spnComensales, spnPrecioCubierto; // ¡MIRAR SI ESTA VARIABLE NOS SIRVE
     JComboBox cboPagado,cboPrecioCubierto;
     JScrollPane scroll;
     DefaultTableModel model;
@@ -86,8 +86,8 @@ public class Vista extends JFrame{
 //        cboPrecioCubierto=new JComboBox(precios);
 //        this.getContentPane().add(cboPrecioCubierto,new AbsoluteConstraints(120, 160, 100, 20));
         
-        SpnPrecioCubierto=new JSpinner(); // con spinner hacemos un desplegable al que le pasaremos los datos a través de un array
-        this.getContentPane().add(SpnPrecioCubierto,new AbsoluteConstraints(120,160,100,20));
+        spnPrecioCubierto=new JSpinner(); // con spinner hacemos un desplegable al que le pasaremos los datos a través de un array
+        this.getContentPane().add(spnPrecioCubierto,new AbsoluteConstraints(120,160,100,20));
         
         /**
          * Agregamos los botones
