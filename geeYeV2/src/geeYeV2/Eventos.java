@@ -129,26 +129,6 @@ public class Eventos {
     
     
     
-   public static void main(String[] args) {
-        Conexion c = new Conexion("catering");
-        
-        c.conectar();
-        
-        
-        Eventos v = new Eventos();
-        v.setComensales(120);
-        v.setFecha("2022-05-21");
-        
-        Eventos v2 = new Eventos("San Rafael", 50, "2022-06-30", true, 50);
-        
-        Eventos v3 = new Eventos(9, "San Pedro",150, "2024", true, 100);
-        
-       System.out.println(v.toString()); 
-       System.out.println(v2.toString());
-                
-                
-        v3.toString();
-        c.desconectar();
-    }
+   
 }
 
